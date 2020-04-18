@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.dao.TeacherDao对应Dao接口 -->
+<mapper namespace="com.dao.teacher.TeacherDao">
+	<!-- 查询用户信息 -->
+	<select id="login"  resultType="Teacher" parameterType="Teacher">
+		select tmajor_key,tnum,tname,tsex,ttel from Teacher where tnum=#{tnum} AND  tpwd=#{tpwd} and texist=1
+	</select>
+	<select id="yanzheng"  resultType="Teacher" parameterType="Teacher">
+		select tnum from Teacher where tnum=#{tnum}
+	</select>
+	<select id="yanzhengTpwd"  resultType="Teacher" parameterType="Teacher">
+		select tnum from Teacher where tnum=#{tnum} and tpwd=#{tpwd} and texist=1
+	</select>
+	<update id="modifyTel" parameterType="Teacher">
+		update Teacher set ttel=#{ttel} where tnum=#{tnum} and texist=1
+	</update>
+	<update id="modifyPwd" parameterType="Teacher">
+		update Teacher set tpwd=#{tpwd} where tnum=#{tnum} and texist=1
+	</update>
+	<select id="attendance" resultType="Course" parameterType="Teacher">
+		select * from course where tmajor_key=#{tmajor_key}
+	</select>
+	<select id="signintotal" resultType="Integer" parameterType="map">
+		select count(*) from signin where csmajor_key=#{coursekey} and sidate=#{coursetime}
+	</select>
+	<select id="coursetime" resultType="String" parameterType="int">
+		select distinct(sidate) from signin where csmajor_key = #{coursekey}
+	</select>
+	<select id="selectbycoursetime" resultType="java.util.HashMap" parameterType="map">
+		select snum,sname,siaddr,sidate,sistate from signin,student where csmajor_key=#{coursekey} and student.smajor_key=signin.smajor_key and (sidate is null or sidate like CONCAT('%',#{coursetime},'%')) limit #{head},#{num}
+	</select>
+	<!-- 添加教师信息 -->
+	<insert id="modifyTeacher" parameterType="Teacher">
+		insert into teacher(tnum,tpwd,tname,tsex,ttel) values(#{tnum},#{tpwd},#{tname},#{tsex},#{ttel})
+	</insert>
+	<!-- 查询教师信息 -->
+	<select id="selectTeacher" parameterType="String" resultType="Teacher">
+		select * from teacher where tnum=#{tnum}
+	</select>
+	<!-- 删除教师信息 -->
+	<update id="delteaBytnum" parameterType="String">
+		update teacher set texist=0 where tnum=#{tnum}
+	</update>
+	<!-- 修改教师信息 -->
+	<update id="updteaBytnum" parameterType="String">
+		update teacher set texist=1 where tnum=#{tnum}
+	</update>
+</mapper>

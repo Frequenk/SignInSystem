@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.dao.TeacherDao对应Dao接口 -->
+<mapper namespace="com.dao.student.StudentSignDao">
+	<update  id="startSign" parameterType="Signin">
+        update signin set sidate=#{sidate},siaddr=#{siaddr},sistate=1 where csmajor_key=${csmajor_key} and smajor_key=${smajor_key} and sistate=0 and siexist=1
+    </update >
+	<select id="getCourse"  resultType="Course" parameterType="Student">
+		select DISTINCT Signin.csmajor_key,csname from Signin,Course where Signin.csmajor_key=Course.csmajor_key and smajor_key=#{smajor_key} and sistate=0 and siexist=1 
+	</select>
+</mapper>

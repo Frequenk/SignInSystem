@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.dao.StudentDao对应Dao接口 -->
+<mapper namespace="com.dao.student.StudentDao">
+	<!-- 查询用户信息 -->
+	<select id="login"  resultType="Student" parameterType="Student">
+		select smajor_key,snum,sname,ssex,stel from Student where snum=#{snum} AND  spwd=#{spwd} and sexist=1
+	</select>
+	<select id="yanzhengSnum"  resultType="Student" parameterType="Student">
+		select snum from Student where snum=#{snum} and sexist=1
+	</select>
+	<select id="yanzhengSpwd"  resultType="Student" parameterType="Student">
+		select snum from Student where snum=#{snum} and spwd=#{spwd} and sexist=1
+	</select>
+	<update id="modifyTel" parameterType="Student">
+		update Student set stel=#{stel} where snum=#{snum} and sexist=1
+	</update>
+	<update id="modifyPwd" parameterType="Student">
+		update Student set spwd=#{spwd} where snum=#{snum} and sexist=1
+	</update>
+	<select id="see"  resultType="java.util.HashMap" parameterType="Student">
+		select snum,sname,siaddr,sidate,sistate,csname from signin,student,course where student.smajor_key=#{smajor_key} and student.smajor_key=signin.smajor_key and signin.csmajor_key=course.csmajor_key
+	</select>
+	<!-- 添加学生信息 -->
+	<insert id="modifyStudent" parameterType="Student">
+		insert into student(snum,spwd,sname,ssex,stel) values(#{snum},#{spwd},#{sname},#{ssex},#{stel})
+	</insert>
+	<!-- 查询学生信息 -->
+	<select id="selectStudent" parameterType="String" resultType="Student">
+		select * from student where snum=#{snum}
+	</select>
+	<!-- 删除学生信息 -->
+	<update id="delstuBysnum" parameterType="String">
+		update student set sexist=0 where snum=#{snum}
+	</update>
+	<!-- 修改学生信息 -->
+	<update id="updstuBysnum" parameterType="String">
+		update student set sexist=1 where snum=#{snum}
+	</update>
+</mapper>

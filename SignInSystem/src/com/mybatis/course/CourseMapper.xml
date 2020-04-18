@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.dao.CourseDao对应Dao接口 -->
+<mapper namespace="com.dao.course.CourseDao">
+	<!-- 添加课程信息 -->
+	<insert id="modifyCourse" parameterType="Course">
+		insert into course(csname,tmajor_key,cszhou,csweek,csno) values(#{csname},#{tmajor_key},#{cszhou},#{csweek},#{csno})
+	</insert>
+	<!-- 查询课程信息 -->
+	<select id="selectCourse" parameterType="String" resultType="Course">
+		select * from course where csname=#{csname}
+	</select>
+	<!-- 删除课程 -->
+	<update id="delcouBycsname" parameterType="String">
+		update course set csexist=0 where csname=#{csname}
+	</update>
+	<!-- 修改课程 -->
+	<update id="updcouBycsname" parameterType="String">
+		update course set csexist=1 where csname=#{csname}
+	</update>
+</mapper>

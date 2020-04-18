@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.dao.AdminDao对应Dao接口 -->
+<mapper namespace="com.dao.admin.AdminDao">
+	<!-- 查询用户信息 -->
+	<select id="login"  resultType="Admin" parameterType="Admin">
+		select anum from Admin where anum=#{anum} AND  apwd=#{apwd}
+	</select>
+	<select id="yanzheng"  resultType="Admin" parameterType="Admin">
+		select anum from Admin where anum=#{anum}
+	</select>
+	<!-- 66 -->
+	<select id="selectcourse"  resultType="Course">
+		select * from course
+	</select>
+	<select id="selectstudent" parameterType="Student" resultType="Student">
+		select * from student where snum=#{snum}
+	</select>
+	<select id="selectstudentbysnum" parameterType="String" resultType="int">
+		select smajor_key from student where snum=#{snum}
+	</select>
+	<insert id="tianjiaxuesheng" parameterType="Class">
+		insert into class(cname,csmajor_key,smajor_key) value(#{cname},#{csmajor_key},#{smajor_key})
+	</insert>
+	<select id="cunzaicourse" parameterType="Class" resultType="Class">
+		select * from class where csmajor_key=#{csmajor_key} and smajor_key=#{smajor_key} and cname=#{cname} and cexist=1
+	</select>
+</mapper>

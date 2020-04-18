@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.dao.TeacherDao对应Dao接口 -->
+<mapper namespace="com.dao.teacher.TeacherSignDao">
+	<insert id="startSign" parameterType="int">
+        insert into signin(csmajor_key,smajor_key) select csmajor_key,smajor_key from class where class.csmajor_key=#{csmajor_key}
+    </insert>
+    <update id="endSign" parameterType="Teacher">
+		update Signin set siexist=0 where csmajor_key in(select csmajor_key from course where tmajor_key=#{tmajor_key})
+    </update>
+	<select id="getCourse_class"  resultType="java.util.HashMap" parameterType="Teacher">
+		select DISTINCT class.csmajor_key,csname,cname from Course,Class where tmajor_key=#{tmajor_key} and course.csmajor_key=class.csmajor_key
+	</select>
+	
+	<insert id="autoStartSign" parameterType="Course">
+        insert into signin(csmajor_key,smajor_key) select csmajor_key,smajor_key from class where class.csmajor_key in (select csmajor_key from course where csno=${csno})
+    </insert>
+    <update id="autoEndSign" >
+		update Signin set siexist=0 where siexist=1
+    </update> 
+</mapper>
