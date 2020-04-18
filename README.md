@@ -1,6 +1,8 @@
 # SignInSystem
 主动服务式课堂签到系统，安卓+Web，学生可发送定位，SSM+WebSocket+Ajax+Bootstrap+MySQL
 
+有问题加我QQ：1281363146
+
 使用前准备：
 1.导入数据库，用signinsystem.sql这个数据库转储文件导入数据库。
 2.在applicationContext.xml文件中修改数据库账号、密码、地址等相关信息。
