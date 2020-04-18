@@ -8,6 +8,9 @@
 2.在applicationContext.xml文件中修改数据库账号、密码、地址等相关信息。
 3.在WebContent\WEB-INF\jsp\student\main.jsp中修改高德地图api的key（需要自己去申请），不改的话将无法签到。
 
+测试的话，电脑端推荐用火狐浏览器，其他浏览器无法直接获取地址。
+或者用那个安卓工程源码生成一个app来测试，在局域网环境下记得改WebContent\WEB-INF\jsp\student\main.jsp中Websocket的地址。
+
 功能介绍：
 学生：
 1.登录，修改个人信息（包括密码）
